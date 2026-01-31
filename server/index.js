@@ -38,46 +38,14 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 
-//app.use(
-//  cors({
-//    origin: [
-//      "http://localhost:5173",
-//      "http://localhost:5174",
-//      process.env.FRONTEND_URL,
-//    ],
-//    credentials: true,
-//  })
-//);
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-
-      const allowedPatterns = [
-        // local dev
-        /^http:\/\/localhost:5173$/,
-        /^http:\/\/localhost:5174$/,
-
-        // vercel preview deployments
-        /^https:\/\/study-.*-keshaviits-projects\.vercel\.app$/,
-
-        // vercel production domain
-        /^https:\/\/study-app-lilac-eta\.vercel\.app$/,
-      ];
-
-      const isAllowed = allowedPatterns.some((pattern) =>
-        pattern.test(origin)
-      );
-
-      if (isAllowed) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://study-app-lilac-eta.vercel.app"
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
