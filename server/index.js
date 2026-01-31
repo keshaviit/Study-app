@@ -3,7 +3,7 @@ const app=express();
 
 //-- routes define -----//
 const userRoute=require("../server/Router/User");
-const profileRoute=require("../server/Router/profile");
+const profileRoute=require("../server/Router/Profile");
 const paymentRoute=require("../server/Router/Payments");
 const courseRoute=require("./Router/Course");
 const contactRoute=require("./Router/Contact")
