@@ -5,19 +5,19 @@ require("dotenv").config();
 
 const mailSender= async (email,title,body)=>{
   try{
-    console.log(process.env.MAIL_USER ,process.env.MAIL_PASS ,process.env.MAIL_HOST);
+    
     const transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
+      host: "smtp-relay.brevo.com",
       port: 587,              // ✅ REQUIRED
       secure: false,          // these filed are required 
       auth: {
-        user:process.env.MAIL_USER ,
-        pass:process.env.MAIL_PASS ,
+        user:process.env.BREVO_SMTP_USER ,
+        pass:process.env.BREVO_API_KEY ,
       },
     });
 
     let info=await transporter.sendMail({
-      from: `"StudyNotion" <${process.env.MAIL_USER}>`,
+      from: `"StudyNotion" <${process.env.BREVO_SMTP_USER}>`,
       to:`${email}`,
       subject:`${title}`,
       html:`${body}`,
