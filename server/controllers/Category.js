@@ -48,13 +48,13 @@ exports.showAllCategory=async (req,res) =>{
     const response=await Category.find({});
     //validate
     if(response.length === 0){
-      res.status(400).json({
+      return res.status(400).json({
         success:false,
         message:"Not category found "
       })
     }
     //res
-    res.status(200).json({
+    return res.status(200).json({
       success:true,
       data:response,
       message:"All category  are successfully fetched",
@@ -63,7 +63,7 @@ exports.showAllCategory=async (req,res) =>{
 
 
   }catch(err){
-    res.status(500).json({
+    return res.status(500).json({
       success:false,
       message:" Something went wrong in fetching  category ",
     })
