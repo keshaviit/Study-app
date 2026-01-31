@@ -51,7 +51,6 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow requests with no origin (Postman, server-to-server)
       if (!origin) return callback(null, true);
 
       const allowedPatterns = [
@@ -76,7 +75,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
 
 
 
