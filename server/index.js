@@ -54,9 +54,15 @@ app.use(
       if (!origin) return callback(null, true);
 
       const allowedPatterns = [
+        // local dev
         /^http:\/\/localhost:5173$/,
         /^http:\/\/localhost:5174$/,
+
+        // vercel preview deployments
         /^https:\/\/study-.*-keshaviits-projects\.vercel\.app$/,
+
+        // vercel production domain
+        /^https:\/\/study-app-lilac-eta\.vercel\.app$/,
       ];
 
       const isAllowed = allowedPatterns.some((pattern) =>
