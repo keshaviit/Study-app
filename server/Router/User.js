@@ -5,7 +5,7 @@ const router=express.Router();
 
 const {sendOtp,signUp,login,changePassword}=require("../controllers/Auth");
 
-const{resetPassword,resetPasswordToken}=require("../controllers/resetPassword");
+const{resetPassword,resetPasswordToken}=require("../controllers/ResetPassword");
 
 // authentication
 const{isAuth}=require("../middlewares/auth");
