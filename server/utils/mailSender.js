@@ -1,38 +1,34 @@
-const nodemailer=require("nodemailer");
+const axios = require("axios");
 
-require("dotenv").config();
-// we are using the pre mongoose functionality
-
-const mailSender= async (email,title,body)=>{
-  try{
-    
-    const transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,              // ✅ REQUIRED
-      secure: false,          // these filed are required 
-      auth: {
-        user:process.env.BREVO_SMTP_USER ,
-        pass:process.env.BREVO_API_KEY ,
+const mailSender = async (email, title, body) => {
+  try {
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "StudyNotion",
+          email: process.env.BREVO_SMTP_USER,
+        },
+        to: [{ email }],
+        subject: title,
+        htmlContent: body,
       },
-    });
+      {
+        headers: {
+          "api-key": process.env.BREVO_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    let info=await transporter.sendMail({
-      from: `"StudyNotion" <${process.env.BREVO_SMTP_USER}>`,
-      to:`${email}`,
-      subject:`${title}`,
-      html:`${body}`,
-
-    });
-
-    console.log(info);
-    return info;
-
-  }catch(error){
-
-    console.log(error.message)
-    throw error; // ✅ 
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Email API error:",
+      error.response?.data || error.message
+    );
+    throw error;
   }
 };
+
 module.exports = mailSender;
-
-
