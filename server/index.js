@@ -48,14 +48,22 @@ app.use(cookieParser());
 //    credentials: true,
 //  })
 //);
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "https://study-87vb47kle-keshaviits-projects.vercel.app"
-  ],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://study-app-lilac-eta.vercel.app",
+      "https://study-87vb47kle-keshaviits-projects.vercel.app",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// ✅ REQUIRED for browser preflight
+app.options("*", cors());
 
 
 //--cloudinary connection--//
