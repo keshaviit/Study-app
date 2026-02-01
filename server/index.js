@@ -48,27 +48,32 @@ app.use(cookieParser());
 //    credentials: true,
 //  })
 //);
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://study-app-lilac-eta.vercel.app",
-      "https://study-87vb47kle-keshaviits-projects.vercel.app",
-    ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://study-app-lilac-eta.vercel.app",
+  "https://study-87vb47kle-keshaviits-projects.vercel.app",
+];
 
-// ✅ REQUIRED for browser preflight
-app.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-  next();
-});
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow Postman / server-side / Railway internal calls
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("CORS: Origin not allowed"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // ✅ REQUIRED
+
 
 //--cloudinary connection--//
 cloudinaryConnect();
