@@ -63,8 +63,12 @@ app.use(
 );
 
 // ✅ REQUIRED for browser preflight
-app.options("*", cors());
-
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
 
 //--cloudinary connection--//
 cloudinaryConnect();
