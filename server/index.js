@@ -53,7 +53,8 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://study-app-lilac-eta.vercel.app"
+    "https://study-app-lilac-eta.vercel.app",
+    "https://study-app-mzop27fw2-keshaviits-projects.vercel.app"
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
