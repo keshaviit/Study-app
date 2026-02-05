@@ -49,18 +49,16 @@ app.use(cookieParser());
 //  })
 //);
 
-// ✅ CORS setup — whitelist your frontend domain 
-app.use( cors({ origin:
-    [ "http://localhost:5173", 
-      "http://localhost:5174", 
-      "https://study-app-lilac-eta.vercel.app" ],
-  credentials: true, 
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  }) ); 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://study-app-lilac-eta.vercel.app"
+  ],
+  credentials: true,
+}));
 
-// ✅ Handle preflight requests 
-app.options("*", cors());
+
 
 //--cloudinary connection--//
 cloudinaryConnect();
