@@ -1,23 +1,23 @@
-const express=require("express");
-const app=express();
+const express = require("express");
+const app = express();
 
 //-- routes define -----//
-const userRoute=require("../server/Router/User");
-const profileRoute=require("../server/Router/Profile");
-const paymentRoute=require("../server/Router/Payments");
-const courseRoute=require("./Router/Course");
-const contactRoute=require("./Router/Contact")
+const userRoute = require("../server/Router/User");
+const profileRoute = require("../server/Router/Profile");
+const paymentRoute = require("../server/Router/Payments");
+const courseRoute = require("./Router/Course");
+const contactRoute = require("./Router/Contact")
 
 
-const cookieParser=require("cookie-parser");
-const dbConnect=require("../server/config/database");
-const cors=require("cors");
-const cloudinaryConnect=require("../server/config/Cloudinary");
-const fileUpload=require("express-fileupload");
-const dotenv=require("dotenv");
+const cookieParser = require("cookie-parser");
+const dbConnect = require("../server/config/database");
+const cors = require("cors");
+const cloudinaryConnect = require("../server/config/Cloudinary");
+const fileUpload = require("express-fileupload");
+const dotenv = require("dotenv");
 
 dotenv.config();
-const PORT=process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 //database 
 dbConnect();
@@ -56,6 +56,8 @@ app.use(cors({
     "https://study-app-lilac-eta.vercel.app"
   ],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 
@@ -64,24 +66,24 @@ app.use(cors({
 cloudinaryConnect();
 
 //--connect the routes--//
-app.use("/api/v1/auth",userRoute);
-app.use("/api/v1/profile",profileRoute);
-app.use("/api/v1/course",courseRoute);
-app.use("/api/v1/payment",paymentRoute);
-app.use("/api/v1/reach",contactRoute)
+app.use("/api/v1/auth", userRoute);
+app.use("/api/v1/profile", profileRoute);
+app.use("/api/v1/course", courseRoute);
+app.use("/api/v1/payment", paymentRoute);
+app.use("/api/v1/reach", contactRoute)
 
 //get 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
   res.status(200).json({
-    success:true,
-    message:"Your server is running as expected ",
+    success: true,
+    message: "Your server is running as expected ",
   })
 
 })
 
 //listen
-app.listen(PORT,(req,res)=>{
-  console.log(`Successfully server started ${PORT}` );
+app.listen(PORT, (req, res) => {
+  console.log(`Successfully server started ${PORT}`);
 })
 
 
